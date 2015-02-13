@@ -4,7 +4,7 @@ makeCacheMatrix <- function(x = matrix()) {
                 x <<- y
                 m <<- NULL
         }
-        get <- function() x
+        get <- function() x #specifies the nature of get. later used to solve the matrix in cacheSolve
         setmatrix <- function(solve) m <<- solve
         getmatrix <- function() m
         list(set = set, get = get,
@@ -14,13 +14,13 @@ makeCacheMatrix <- function(x = matrix()) {
 
 
 cacheSolve <- function(x, ...) {
-        m <- x$getmatrix()
-        if(!is.null(m)) {
+        m <- x$getmatrix()                      ##
+        if(!is.null(m)) {                       ##This if returns the message when the cached data is being called by the function
                 message("getting cached data")
                 return(m)
         }
         data <- x$get()
-        m <- solve(data, ...)
-        x$setmatrix(m)
+        m <- solve(data, ...)   #Solves the cached matrix
+        x$setmatrix(m)          #
         m
 }
